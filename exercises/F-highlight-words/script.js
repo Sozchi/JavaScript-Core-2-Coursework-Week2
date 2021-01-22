@@ -1,5 +1,5 @@
 function highlightWords(paragraph, colours) {
-  // Write your code here...
+  
 }
 
 const paragraph =
