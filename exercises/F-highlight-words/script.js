@@ -1,5 +1,73 @@
 function highlightWords(paragraph, colours) {
-  
+  function dropDownColors( colours )
+  {
+    var dropDownLabel = document.createElement( "label" ); //drop down label
+    label.innerHTML = "choose a colour: "; label.for = "colours";
+    
+    var list = document.createElement( "select" ); //drop down list
+    list.Id = "colours";
+
+    //option tags
+    for ( var i = 0; i < colours.length; i++ )
+    {
+      var item = document.createElement( "options" );
+      item.innerHTML = colours[i].toUpperCase();
+
+      list.appendChild( item );
+    }
+
+    var dropDown = {
+      label: dropDownLabel,
+      select: list
+    };
+
+    return dropDown;
+  }
+
+  function paraWithSpan( paragraph )
+  {
+    var word = paragraph.split( "" );
+    var tag = document.createElement( "p" );
+
+    for(var i = 0; i < word.length; i++) {
+      var wordSpan = document.createElement( "span" );
+      wordSpan.innerHTML = word[i] + "";
+      
+      tag.appendChild( wordSpan );
+    }
+    return tag;
+  }
+
+  function paraEventListener( tag, dropDown )
+  {
+    var paraSpans = tag.childNodes;
+    for ( var i = 0; i < paraSpans.length; i++ )
+    {
+      paraSpans[i].addEventListener( "click", function ()
+      {
+        if ( dropDown.select.value.toLowerCase() === "none" )
+        {
+          this.style.backgroundColor = "";
+        } else
+        {
+          this.style.backgroundColor = dropDown.select.value;
+        }
+      } );
+    }
+  }
+
+  function highlightWords( paragraph, colours )
+  {
+    var content = document.getElementById( "content" );
+    var dropDown = coloursDropDown( colours );
+    var tag = paraWithSpan( paragraph );
+    paraEventListener( tag, dropDown );
+
+    content.appendChild( tag );
+    content.appendChild( dropDown.label );
+    content.appendChild( dropDown.select );
+  }
+
 }
 
 const paragraph =
